@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Type } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigModuleOptions } from '@nestjs/config';
 import { environmentSchema } from '../schemas/environment.schema';
 
@@ -7,14 +7,8 @@ const configModuleOptions: ConfigModuleOptions = {
   envFilePath: ['.env']
 };
 
-export const environmentModuleImports: (Type<any> | DynamicModule | Promise<DynamicModule>)[] = [
-  ConfigModule.forRoot(configModuleOptions)
-];
-
-export const environmentModuleExports: (Type<any> | DynamicModule)[] = [ConfigModule];
-
 @Module({
-  imports: environmentModuleImports,
-  exports: environmentModuleExports
+  imports: [ConfigModule.forRoot(configModuleOptions)],
+  exports: [ConfigModule]
 })
 export class EnvironmentModule {}
