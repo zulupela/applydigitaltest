@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/core-cron/tsconfig.app.json"
       }
+    },
+    "environment": {
+      "type": "library",
+      "root": "libs/environment",
+      "entryFile": "index",
+      "sourceRoot": "libs/environment/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/environment/tsconfig.lib.json"
+      }
     }
   }
 }
