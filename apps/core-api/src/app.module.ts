@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { EnvironmentModule } from '@app/environment';
+import { DatabaseModule } from '@app/database';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EnvironmentModule } from '@app/environment';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     EnvironmentModule,
+    DatabaseModule,
     ClientsModule.registerAsync([
       {
         imports: [ConfigModule],

@@ -20,7 +20,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/environment": ["libs/environment/src"],
-      "@app/environment/*": ["libs/environment/src/*"]
+      "@app/environment/*": ["libs/environment/src/*"],
+      "@app/database": ["libs/database/src"],
+      "@app/database/*": ["libs/database/src/*"],
+      "@entities/*": ["libs/models/src/entities/*"]
     }
   }
 }
