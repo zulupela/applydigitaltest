@@ -982,17 +982,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/microservices@npm:^11.0.1":
-  version: 11.0.1
-  resolution: "@nestjs/microservices@npm:11.0.1"
+"@nestjs/microservices@npm:^10.0.0":
+  version: 10.4.15
+  resolution: "@nestjs/microservices@npm:10.4.15"
   dependencies:
     iterare: "npm:1.2.1"
     tslib: "npm:2.8.1"
   peerDependencies:
     "@grpc/grpc-js": "*"
-    "@nestjs/common": ^11.0.0
-    "@nestjs/core": ^11.0.0
-    "@nestjs/websockets": ^11.0.0
+    "@nestjs/common": ^10.0.0
+    "@nestjs/core": ^10.0.0
+    "@nestjs/websockets": ^10.0.0
     amqp-connection-manager: "*"
     amqplib: "*"
     cache-manager: "*"
@@ -1021,7 +1021,7 @@ __metadata:
       optional: true
     nats:
       optional: true
-  checksum: 10c0/3d739b9e34d40f9b9bbc7d167545e8dfe0c4a890ba129236c6cdb8fae8decaaf35129f86d4b14e6908e3580f1891eccf07d3c082d9d60da683e473b99e31ffa3
+  checksum: 10c0/be5cc7daa0b80e894037f437e0a094ed7e05616d962abce574ff4d1024c5865ff4e68ba3ab4f5fa1d265a9b5cc30677b8812f3340cbab848f87525dbc049570b
   languageName: node
   linkType: hard
 
@@ -2680,7 +2680,7 @@ __metadata:
     "@nestjs/common": "npm:^10.0.0"
     "@nestjs/config": "npm:^3.3.0"
     "@nestjs/core": "npm:^10.0.0"
-    "@nestjs/microservices": "npm:^11.0.1"
+    "@nestjs/microservices": "npm:^10.0.0"
     "@nestjs/platform-express": "npm:^10.0.0"
     "@nestjs/schedule": "npm:^4.1.2"
     "@nestjs/schematics": "npm:^10.0.0"
@@ -2707,6 +2707,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:^5.1.3"
+    webpack: "npm:^5.97.1"
   languageName: unknown
   linkType: soft
 
@@ -7071,7 +7072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.97.1":
+"webpack@npm:5.97.1, webpack@npm:^5.97.1":
   version: 5.97.1
   resolution: "webpack@npm:5.97.1"
   dependencies:
