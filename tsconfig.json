@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
@@ -23,7 +24,10 @@
       "@app/environment/*": ["libs/environment/src/*"],
       "@app/database": ["libs/database/src"],
       "@app/database/*": ["libs/database/src/*"],
-      "@entities/*": ["libs/models/src/entities/*"]
+      "@entities/*": ["libs/models/src/entities/*"],
+      "@testing": ["libs/testing/src/index.ts"],
+      "@core-cron/controllers/*": ["apps/core-cron/src/controllers/*"],
+      "@core-cron/services/*": ["apps/core-cron/src/services/*"]
     }
   }
 }

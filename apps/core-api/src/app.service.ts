@@ -7,6 +7,6 @@ export class AppService {
   constructor(@Inject('CRON_CORE_SERVICE') private client: ClientProxy) {}
 
   async getHello(): Promise<string> {
-    return firstValueFrom<string>(this.client.send({ cmd: 'hello' }, {}));
+    return firstValueFrom<string>(this.client.send({ cmd: 'getContentfulProductsData' }, {}));
   }
 }

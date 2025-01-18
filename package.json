@@ -20,7 +20,9 @@
     "migration:generate": "ts-node libs/database/src/scripts/migration-generate.script.ts",
     "migration:run": "yarn typeorm:datasource migration:run",
     "migration:revert": "yarn typeorm:datasource migration:revert",
-    "migration:lint": "eslint \"libs/database/src/migrations/*.ts\" --fix"
+    "migration:lint": "eslint \"libs/database/src/migrations/*.ts\" --fix",
+    "test:unit": "jest --coverage --config ./libs/testing/src/config/jest-unit.config.ts",
+    "test:e2e": "jest --coverage --config ./libs/testing/src/config/jest-e2e.config.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^3.1.3",
