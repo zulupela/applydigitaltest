@@ -1,12 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Product } from '@entities/product.entity';
 
 @Injectable()
 export class ContentfulService {
-  constructor(@Inject('CRON_CORE_SERVICE') private client: ClientProxy) {}
+  constructor(
+    private readonly logger: Logger,
+    @Inject('CRON_CORE_SERVICE') private readonly client: ClientProxy
+  ) {}
 
-  async getContentfulProductsData(): Promise<string> {
-    return firstValueFrom<string>(this.client.send({ cmd: 'getContentfulProductsData' }, {}));
+  public async getContentfulProductsData(): Promise<Product[]> {
+    try {
+      this.logger.log(`${this.getContentfulProductsData.name}: started`);
+
+      const result = await firstValueFrom<Product[]>(this.client.send({ cmd: 'getContentfulProductsData' }, {}));
+
+      this.logger.log(`${this.getContentfulProductsData.name}: contentful information successfully retrieved`);
+
+      return result;
+    } catch (error) {
+      this.logger.error(`${this.getContentfulProductsData.name}: failed`, { error });
+      throw new Error('Failed to get contentful products information');
+    }
   }
 }

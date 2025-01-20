@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ContentfulController } from '@core-api/controllers/contentful.controller';
@@ -22,6 +22,6 @@ import { ContentfulService } from '@core-api/services/contentful.service';
     ])
   ],
   controllers: [ContentfulController],
-  providers: [ContentfulService]
+  providers: [Logger, ContentfulService]
 })
 export class ContentfulModule {}

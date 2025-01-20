@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import { createServiceMock, Mock } from '@testing';
 import { ProductController } from '@core-api/controllers/product.controller';
 import { ProductService } from '@core-api/services/product.service';
+import { GetProductsQueryDto } from '@dtos/products.dto';
 import { Product } from '@entities/product.entity';
 
 describe('ProductController', () => {
@@ -49,7 +50,9 @@ describe('ProductController', () => {
 
       serviceMock.getProducts.mockResolvedValue([products, products.length]);
 
-      const result = await controller.getProducts({});
+      const query = new GetProductsQueryDto();
+
+      const result = await controller.getProducts(query);
 
       expect(result).toMatchObject([products, products.length]);
       expect(serviceMock.getProducts).toHaveBeenCalledTimes(1);
