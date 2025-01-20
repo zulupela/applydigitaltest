@@ -1,21 +1,31 @@
 import { Test } from '@nestjs/testing';
-import { createServiceMock, Mock } from '@testing';
+import { createServiceMock } from '@testing';
 import { ReportController } from '@core-api/controllers/report.controller';
 import { ReportService } from '@core-api/services/report.service';
 import { DeletedProductsReport, NonDeletedProductsReport, ProductCategoryReport } from '@interfaces/report.interface';
 import { GetNonDeletedProductsReportQueryDto } from '@dtos/report.dto';
+import { Logger } from '@nestjs/common';
+import { AuthService } from '@core-api/services/auth.service';
 
 describe('ReportController', () => {
   let controller: ReportController;
-  let serviceMock: Mock<ReportService>;
+  let serviceMock: jest.Mocked<ReportService>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       controllers: [ReportController],
       providers: [
         {
+          provide: Logger,
+          useValue: createServiceMock(Logger)
+        },
+        {
           provide: ReportService,
           useValue: createServiceMock(ReportService)
+        },
+        {
+          provide: AuthService,
+          useValue: createServiceMock(AuthService)
         }
       ]
     }).compile();

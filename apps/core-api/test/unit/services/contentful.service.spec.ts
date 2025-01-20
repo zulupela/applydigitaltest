@@ -2,18 +2,18 @@ import { of } from 'rxjs';
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { createServiceMock, Mock } from '@testing';
+import { createServiceMock } from '@testing';
 import { ContentfulService } from '@core-api/services/contentful.service';
 import { Product } from '@entities/product.entity';
 
 describe('ContentfulService', () => {
   let service: ContentfulService;
-  let clientProxyMock: Mock<ClientProxy>;
+  let clientProxyMock: jest.Mocked<ClientProxy>;
 
   beforeEach(async () => {
     clientProxyMock = {
       send: jest.fn()
-    } as unknown as Mock<ClientProxy>;
+    } as unknown as jest.Mocked<ClientProxy>;
 
     const module = await Test.createTestingModule({
       providers: [

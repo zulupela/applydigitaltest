@@ -1,15 +1,15 @@
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createRespositoryMock, createServiceMock, Mock } from '@testing';
+import { createRespositoryMock, createServiceMock } from '@testing';
 import { ProductService } from '@core-api/services/product.service';
 import { Product } from '@entities/product.entity';
 import { GetProductsQueryDto } from '@dtos/products.dto';
 
 describe('ProductService', () => {
   let service: ProductService;
-  let productRepositoryMock: Mock<Repository<Product>>;
+  let productRepositoryMock: jest.Mocked<Repository<Product>>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -82,7 +82,7 @@ describe('ProductService', () => {
 
   describe('deleteProduct', () => {
     it('should delete product', async () => {
-      productRepositoryMock.softDelete.mockResolvedValueOnce({ affected: 1 });
+      productRepositoryMock.softDelete.mockResolvedValueOnce({ affected: 1 } as UpdateResult);
       const result = await service.deleteProduct({ id: 'test' });
 
       expect(result).toMatchObject({ affected: 1 });

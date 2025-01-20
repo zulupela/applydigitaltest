@@ -5,9 +5,10 @@ import { ContentfulModule } from '@core-api/modules/contentful.module';
 import { ProductModule } from '@core-api/modules/product.module';
 import { ParseFilterMiddleware } from '@core-api/middlewares/parse-filters.middleware';
 import { ReportModule } from './report.module';
+import { AuthModule } from './auth.module';
 
 @Module({
-  imports: [EnvironmentModule, DatabaseModule, ContentfulModule, ProductModule, ReportModule]
+  imports: [EnvironmentModule, DatabaseModule, AuthModule, ContentfulModule, ProductModule, ReportModule]
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { createServiceMock, Mock } from '@testing';
+import { createServiceMock } from '@testing';
 import { Product } from '@entities/product.entity';
 import { ContentfulController } from '@core-api/controllers/contentful.controller';
 import { ContentfulService } from '@core-api/services/contentful.service';
 
 describe('ContentfulController', () => {
   let controller: ContentfulController;
-  let serviceMock: Mock<ContentfulService>;
+  let serviceMock: jest.Mocked<ContentfulService>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({

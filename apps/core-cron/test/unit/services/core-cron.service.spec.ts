@@ -1,14 +1,15 @@
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Repository } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createRespositoryMock, createServiceMock, Mock } from '@testing';
+import { createRespositoryMock, createServiceMock } from '@testing';
 import { CoreCronService } from '@core-cron/services/core-cron.service';
 import { Product } from '@entities/product.entity';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { AxiosResponse } from 'axios';
 
 jest.mock('@nestjs/schedule', () => {
   const originalConfigModule = jest.requireActual('@nestjs/schedule');
@@ -17,9 +18,9 @@ jest.mock('@nestjs/schedule', () => {
 
 describe('CoreCronService', () => {
   let service: CoreCronService;
-  let httpServiceMock: Mock<HttpService>;
-  let configServiceMock: Mock<ConfigService>;
-  let productRepositoryMock: Mock<Repository<Product>>;
+  let httpServiceMock: jest.Mocked<HttpService>;
+  let configServiceMock: jest.Mocked<ConfigService>;
+  let productRepositoryMock: jest.Mocked<Repository<Product>>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -91,7 +92,7 @@ describe('CoreCronService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null
-      }));
+      })) as unknown as Product[];
 
       const spaceIdTest = 'spaceIdTest';
       const environmentTest = 'environmentTest';
@@ -103,10 +104,10 @@ describe('CoreCronService', () => {
       configServiceMock.get.mockReturnValueOnce(accessTokenTest);
       configServiceMock.get.mockReturnValueOnce(contentTypeTest);
 
-      httpServiceMock.get.mockReturnValueOnce(of(mockContentfulResponse));
+      httpServiceMock.get.mockReturnValueOnce(of(mockContentfulResponse) as Observable<AxiosResponse>);
 
-      productRepositoryMock.create.mockReturnValueOnce(mockProducts);
-      productRepositoryMock.save.mockResolvedValueOnce(mockProducts);
+      productRepositoryMock.create.mockReturnValueOnce(mockProducts as unknown as Product);
+      productRepositoryMock.save.mockResolvedValueOnce(mockProducts as unknown as Product);
 
       const result = await service.getContentfulProductsData();
 
