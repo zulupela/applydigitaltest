@@ -12,18 +12,42 @@ export class ProductService {
     private readonly productRepository: Repository<Product>
   ) {}
 
-  public getProducts(query: GetProductsQueryDto): Promise<[Product[], number]> {
-    const { sort, filter, pagination } = query;
-    return this.productRepository.findAndCount({
-      where: { ...filter },
-      skip: pagination.offset,
-      take: pagination.limit,
-      order: sort
-    });
+  public async getProducts(query: GetProductsQueryDto): Promise<[Product[], number]> {
+    try {
+      this.logger.log(`${this.getProducts.name}: started`, { query });
+
+      const { sort, filter, pagination } = query;
+      const result = await this.productRepository.findAndCount({
+        where: { ...filter },
+        skip: pagination.offset,
+        take: pagination.limit,
+        order: sort
+      });
+
+      this.logger.log(`${this.getProducts.name}: products information successfully retrieved`, { length: result[1] });
+
+      return result;
+    } catch (error) {
+      this.logger.error(`${this.getProducts.name}: failed`, { error });
+      throw new Error('Failed to retrieve products');
+    }
   }
 
-  public deleteProduct(params: DeleteProductParamsDto): Promise<UpdateResult> {
-    const { id } = params;
-    return this.productRepository.softDelete({ id, deletedAt: Equal(null) });
+  public async deleteProduct(params: DeleteProductParamsDto): Promise<UpdateResult> {
+    try {
+      this.logger.log(`${this.deleteProduct.name}: started`, { params });
+
+      const { id } = params;
+      const result = await this.productRepository.softDelete({ id, deletedAt: Equal(null) });
+
+      this.logger.log(`${this.deleteProduct.name}: product successfully deleted`, {
+        affected: result.affected
+      });
+
+      return result;
+    } catch (error) {
+      this.logger.error(`${this.deleteProduct.name}: failed`, { error });
+      throw new Error('Failed to delete product');
+    }
   }
 }
