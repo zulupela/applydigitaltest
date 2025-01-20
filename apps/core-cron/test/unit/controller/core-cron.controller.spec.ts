@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
-import { createServiceMock, Mock } from '@testing';
+import { createServiceMock } from '@testing';
 import { CoreCronController } from '@core-cron/controllers/core-cron.controller';
 import { CoreCronService } from '@core-cron/services/core-cron.service';
 import { Product } from '@entities/product.entity';
 
 describe('CoreCronController', () => {
   let controller: CoreCronController;
-  let serviceMock: Mock<CoreCronService>;
+  let serviceMock: jest.Mocked<CoreCronService>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({

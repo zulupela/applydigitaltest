@@ -5,7 +5,7 @@ export class GetNonDeletedProductsReportQueryDto {
   @IsBoolean()
   @IsOptional()
   @Transform(({ value }) => value === 'true')
-  withPrice: boolean = true;
+  withPrice: boolean = false;
 
   @IsDate()
   @IsOptional()

@@ -1,13 +1,14 @@
 import { Test } from '@nestjs/testing';
-import { createServiceMock, Mock } from '@testing';
+import { createServiceMock } from '@testing';
 import { ProductController } from '@core-api/controllers/product.controller';
 import { ProductService } from '@core-api/services/product.service';
 import { GetProductsQueryDto } from '@dtos/products.dto';
 import { Product } from '@entities/product.entity';
+import { UpdateResult } from 'typeorm';
 
 describe('ProductController', () => {
   let controller: ProductController;
-  let serviceMock: Mock<ProductService>;
+  let serviceMock: jest.Mocked<ProductService>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -61,7 +62,7 @@ describe('ProductController', () => {
 
   describe('deleteProduct', () => {
     it('should delete a product', async () => {
-      serviceMock.deleteProduct.mockResolvedValue({ affected: 1 });
+      serviceMock.deleteProduct.mockResolvedValue({ affected: 1 } as UpdateResult);
 
       const result = await controller.deleteProduct({ id: 'test' });
 

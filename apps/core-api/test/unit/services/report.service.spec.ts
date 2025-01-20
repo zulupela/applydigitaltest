@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createRespositoryMock, createServiceMock, Mock } from '@testing';
-import { Between, EntityMetadata, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
+import { createRespositoryMock, createServiceMock } from '@testing';
+import { Between, EntityMetadata, LessThanOrEqual, MoreThanOrEqual, Repository, SelectQueryBuilder } from 'typeorm';
 import { DeletedProductsReport, NonDeletedProductsReport, ProductCategoryReport } from '@interfaces/report.interface';
 import { ReportService } from '@core-api/services/report.service';
 import { GetNonDeletedProductsReportQueryDto } from '@dtos/report.dto';
@@ -10,7 +10,7 @@ import { Product } from '@entities/product.entity';
 
 describe('ReportService', () => {
   let service: ReportService;
-  let productRepositoryMock: Mock<Repository<Product>>;
+  let productRepositoryMock: jest.Mocked<Repository<Product>>;
 
   const columnSelectFields: (keyof Product)[] = ['name', 'price'];
 
@@ -161,7 +161,7 @@ describe('ReportService', () => {
       expect(result).toMatchObject(nonDeletedProductsReport);
       expect(productRepositoryMock.find).toHaveBeenCalledWith({
         where: {},
-        select: columnSelectFields,
+        select: columnSelectFields.filter((field) => field !== 'price'),
         withDeleted: true
       });
     });
@@ -178,7 +178,7 @@ describe('ReportService', () => {
       expect(result).toMatchObject(nonDeletedProductsReport);
       expect(productRepositoryMock.find).toHaveBeenCalledWith({
         where: { createdAt: Between(query.startDate, query.endDate) },
-        select: columnSelectFields,
+        select: columnSelectFields.filter((field) => field !== 'price'),
         withDeleted: true
       });
     });
@@ -194,7 +194,7 @@ describe('ReportService', () => {
       expect(result).toMatchObject(nonDeletedProductsReport);
       expect(productRepositoryMock.find).toHaveBeenCalledWith({
         where: { createdAt: MoreThanOrEqual(query.startDate) },
-        select: columnSelectFields,
+        select: columnSelectFields.filter((field) => field !== 'price'),
         withDeleted: true
       });
     });
@@ -210,23 +210,23 @@ describe('ReportService', () => {
       expect(result).toMatchObject(nonDeletedProductsReport);
       expect(productRepositoryMock.find).toHaveBeenCalledWith({
         where: { createdAt: LessThanOrEqual(query.endDate) },
-        select: columnSelectFields,
+        select: columnSelectFields.filter((field) => field !== 'price'),
         withDeleted: true
       });
     });
 
-    it('should get non-deleted products report without prices', async () => {
+    it('should get non-deleted products report with prices', async () => {
       productRepositoryMock.find.mockResolvedValueOnce(products);
 
       const query = new GetNonDeletedProductsReportQueryDto();
-      query.withPrice = false;
+      query.withPrice = true;
 
       const result = await service.getNonDeletedProductsReport(query);
 
       expect(result).toMatchObject(nonDeletedProductsReport);
       expect(productRepositoryMock.find).toHaveBeenCalledWith({
         where: {},
-        select: columnSelectFields.filter((field) => field !== 'price'),
+        select: columnSelectFields,
         withDeleted: true
       });
     });
@@ -261,7 +261,7 @@ describe('ReportService', () => {
         select: jest.fn().mockReturnThis(),
         groupBy: jest.fn().mockReturnThis(),
         getRawMany: jest.fn().mockResolvedValue(productCategoryReport)
-      };
+      } as unknown as SelectQueryBuilder<Product>;
 
       productRepositoryMock.createQueryBuilder.mockReturnValueOnce(mockQueryBuilder);
 
