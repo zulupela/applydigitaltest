@@ -1,8 +1,8 @@
-import { Repository } from 'typeorm';
+import { Equal, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
 import { Product } from '@entities/product.entity';
-import { GetProductsQueryDto } from '@dtos/products.dto';
+import { DeleteProductParamsDto, GetProductsQueryDto } from '@dtos/products.dto';
 
 @Injectable()
 export class ProductService {
@@ -12,14 +12,18 @@ export class ProductService {
     private readonly productRepository: Repository<Product>
   ) {}
 
-  getProducts(query: GetProductsQueryDto): Promise<[Product[], number]> {
+  public getProducts(query: GetProductsQueryDto): Promise<[Product[], number]> {
     const { sort, filter, pagination } = query;
-    console.log('FILTER', { filter });
     return this.productRepository.findAndCount({
       where: { ...filter },
       skip: pagination.offset,
       take: pagination.limit,
       order: sort
     });
+  }
+
+  public deleteProduct(params: DeleteProductParamsDto): Promise<UpdateResult> {
+    const { id } = params;
+    return this.productRepository.softDelete({ id, deletedAt: Equal(null) });
   }
 }

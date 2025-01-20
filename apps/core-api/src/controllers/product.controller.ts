@@ -1,7 +1,8 @@
+import { UpdateResult } from 'typeorm';
+import { Controller, Delete, Get, Logger, Param, Query } from '@nestjs/common';
+import { DeleteProductParamsDto, GetProductsQueryDto } from '@dtos/products.dto';
 import { ProductService } from '@core-api/services/product.service';
-import { GetProductsQueryDto } from '@dtos/products.dto';
 import { Product } from '@entities/product.entity';
-import { Controller, Get, Logger, Query } from '@nestjs/common';
 
 @Controller('product')
 export class ProductController {
@@ -13,5 +14,10 @@ export class ProductController {
   @Get()
   public getProducts(@Query() query: GetProductsQueryDto): Promise<[Product[], number]> {
     return this.productService.getProducts(query);
+  }
+
+  @Delete(':id')
+  public deleteProduct(@Param() params: DeleteProductParamsDto): Promise<UpdateResult> {
+    return this.productService.deleteProduct(params);
   }
 }
