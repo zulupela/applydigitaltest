@@ -44,7 +44,7 @@ describe('ProductController', () => {
           stock: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
-          deletedAt: undefined
+          deletedAt: null
         }
       ];
 

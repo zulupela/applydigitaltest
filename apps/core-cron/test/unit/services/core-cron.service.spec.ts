@@ -90,7 +90,7 @@ describe('CoreCronService', () => {
         ...product,
         createdAt: new Date(),
         updatedAt: new Date(),
-        deletedAt: undefined
+        deletedAt: null
       }));
 
       const spaceIdTest = 'spaceIdTest';

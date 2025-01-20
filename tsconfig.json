@@ -25,6 +25,7 @@
       "@app/database": ["libs/database/src"],
       "@app/database/*": ["libs/database/src/*"],
       "@dtos/*": ["libs/models/src/dtos/*"],
+      "@interfaces/*": ["libs/models/src/interfaces/*"],
       "@entities/*": ["libs/models/src/entities/*"],
       "@testing": ["libs/testing/src/index.ts"],
       "@core-api/controllers/*": ["apps/core-api/src/controllers/*"],
