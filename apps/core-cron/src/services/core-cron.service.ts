@@ -40,9 +40,9 @@ export class CoreCronService {
         })
       );
 
-      this.logger.debug(`${this.getContentfulProductsData.name}: contentful data retrieved`, {
-        length: items.length
-      });
+      this.logger.debug(
+        `${this.getContentfulProductsData.name}: contentful data retrieved: ${JSON.stringify({ length: items.length })}`
+      );
 
       const products = this.productRepository.create(items.map((item) => ({ id: item.sys.id, ...item.fields })));
       const updateResults = await this.productRepository.save(products);

@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { EnvironmentModule } from '@app/environment';
-import { DatabaseModule } from '@app/database';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ContentfulController } from '@core-api/controllers/contentful.controller';
+import { ContentfulService } from '@core-api/services/contentful.service';
 
 @Module({
   imports: [
-    EnvironmentModule,
-    DatabaseModule,
     ClientsModule.registerAsync([
       {
         imports: [ConfigModule],
@@ -17,15 +13,15 @@ import { AppService } from './app.service';
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            port: configService.get<number>('CORE_CRON_PORT'),
-            host: 'localhost'
+            host: 'localhost',
+            port: configService.get<number>('CORE_CRON_PORT')
           }
         }),
         inject: [ConfigService]
       }
     ])
   ],
-  controllers: [AppController],
-  providers: [AppService]
+  controllers: [ContentfulController],
+  providers: [ContentfulService]
 })
-export class AppModule {}
+export class ContentfulModule {}

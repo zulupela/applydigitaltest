@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -10,13 +10,13 @@ import { Product } from '@entities/product.entity';
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
     EnvironmentModule,
     DatabaseModule,
     HttpModule,
+    ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([Product])
   ],
   controllers: [CoreCronController],
-  providers: [CoreCronService]
+  providers: [Logger, CoreCronService]
 })
 export class CoreCronModule {}

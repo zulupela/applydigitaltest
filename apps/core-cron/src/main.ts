@@ -1,14 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { CoreCronModule } from './modules/core-cron.module';
 import { ConfigService } from '@nestjs/config';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { CoreCronModule } from '@core-cron/modules/core-cron.module';
 
 async function bootstrap() {
   const configService = new ConfigService();
   const port = configService.get<number>('CORE_CRON_PORT');
 
   if (!port) {
-    throw new Error('Microservice port missing');
+    throw new Error('Contentful port missing');
   }
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(CoreCronModule, {

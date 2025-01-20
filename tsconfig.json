@@ -24,9 +24,16 @@
       "@app/environment/*": ["libs/environment/src/*"],
       "@app/database": ["libs/database/src"],
       "@app/database/*": ["libs/database/src/*"],
+      "@dtos/*": ["libs/models/src/dtos/*"],
       "@entities/*": ["libs/models/src/entities/*"],
       "@testing": ["libs/testing/src/index.ts"],
+      "@core-api/controllers/*": ["apps/core-api/src/controllers/*"],
+      "@core-api/modules/*": ["apps/core-api/src/modules/*"],
+      "@core-api/services/*": ["apps/core-api/src/services/*"],
+      "@core-api/middlewares/*": ["apps/core-api/src/middlewares/*"],
+      "@core-api/utils/*": ["apps/core-api/src/utils/*"],
       "@core-cron/controllers/*": ["apps/core-cron/src/controllers/*"],
+      "@core-cron/modules/*": ["apps/core-cron/src/modules/*"],
       "@core-cron/services/*": ["apps/core-cron/src/services/*"]
     }
   }
