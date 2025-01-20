@@ -1,4 +1,4 @@
-import { Equal, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -86,7 +86,7 @@ describe('ProductService', () => {
       const result = await service.deleteProduct({ id: 'test' });
 
       expect(result).toMatchObject({ affected: 1 });
-      expect(productRepositoryMock.softDelete).toHaveBeenCalledWith({ id: 'test', deletedAt: Equal(null) });
+      expect(productRepositoryMock.softDelete).toHaveBeenCalledWith({ id: 'test' });
     });
 
     it('should handle the errors', async () => {

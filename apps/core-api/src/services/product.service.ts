@@ -1,4 +1,4 @@
-import { Equal, Repository, UpdateResult } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
 import { Product } from '@entities/product.entity';
@@ -38,7 +38,7 @@ export class ProductService {
       this.logger.log(`${this.deleteProduct.name}: started`, { params });
 
       const { id } = params;
-      const result = await this.productRepository.softDelete({ id, deletedAt: Equal(null) });
+      const result = await this.productRepository.softDelete({ id });
 
       this.logger.log(`${this.deleteProduct.name}: product successfully deleted`, {
         affected: result.affected
