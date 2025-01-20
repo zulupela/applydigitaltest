@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install specific version of Yarn
-        run: npm install -g yarn@4.6.0
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Install dependencies
         run: yarn install
