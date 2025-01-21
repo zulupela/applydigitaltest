@@ -25,7 +25,7 @@ export class JwtGuard implements CanActivate {
       this.logger.log(`${this.canActivate.name}: jwt guard success`);
       return true;
     } catch (error) {
-      this.logger.error(`${this.canActivate.name}: jwt guard failed`, { error });
+      this.logger.error(`${this.canActivate.name}: jwt guard failed with ${JSON.stringify({ error: error.message })}`);
       return false;
     }
   }

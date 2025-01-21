@@ -18,7 +18,7 @@ export class AuthService {
 
       return token;
     } catch (error) {
-      this.logger.error(`${this.getToken.name}: failed`, { error });
+      this.logger.error(`${this.getToken.name}: failed with ${JSON.stringify({ error: error.message })}`);
       throw new Error('Failed to get authorization token');
     }
   }
@@ -33,7 +33,7 @@ export class AuthService {
 
       return result;
     } catch (error) {
-      this.logger.error(`${this.verifyToken.name}: failed`, { error });
+      this.logger.error(`${this.verifyToken.name}: failed with ${JSON.stringify({ error: error.message })}`);
       throw new Error('Failed to verify token');
     }
   }

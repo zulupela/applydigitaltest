@@ -36,7 +36,9 @@ export class ReportService {
         deletedProducts: deleted
       };
     } catch (error) {
-      this.logger.error(`${this.getDeletedProductsReport.name}: failed`, { error });
+      this.logger.error(
+        `${this.getDeletedProductsReport.name}: failed with ${JSON.stringify({ error: error.message })}`
+      );
       throw new Error('Failed to retrieve deleted products report');
     }
   }
@@ -84,7 +86,9 @@ export class ReportService {
         nonDeletedProducts: nonDeleted
       };
     } catch (error) {
-      this.logger.error(`${this.getNonDeletedProductsReport.name}: failed`, { error });
+      this.logger.error(
+        `${this.getNonDeletedProductsReport.name}: failed with ${JSON.stringify({ error: error.message })}`
+      );
       throw new Error('Failed to retrieve non-deleted products report');
     }
   }
@@ -105,7 +109,9 @@ export class ReportService {
 
       return productsGroupedByCategory;
     } catch (error) {
-      this.logger.error(`${this.getProductCategoryReport.name}: failed`, { error });
+      this.logger.error(
+        `${this.getProductCategoryReport.name}: failed with ${JSON.stringify({ error: error.message })}`
+      );
       throw new Error('Failed to retrieve product category report');
     }
   }
