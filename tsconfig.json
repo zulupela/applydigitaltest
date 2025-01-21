@@ -28,6 +28,7 @@
       "@interfaces/*": ["libs/models/src/interfaces/*"],
       "@entities/*": ["libs/models/src/entities/*"],
       "@testing": ["libs/testing/src/index.ts"],
+      "@swagger": ["libs/swagger/src/index.ts"],
       "@core-api/controllers/*": ["apps/core-api/src/controllers/*"],
       "@core-api/guards/*": ["apps/core-api/src/guards/*"],
       "@core-api/modules/*": ["apps/core-api/src/modules/*"],

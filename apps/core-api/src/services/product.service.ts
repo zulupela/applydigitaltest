@@ -28,7 +28,7 @@ export class ProductService {
 
       return result;
     } catch (error) {
-      this.logger.error(`${this.getProducts.name}: failed`, { error });
+      this.logger.error(`${this.getProducts.name}: failed with ${JSON.stringify({ error: error.message })}`);
       throw new Error('Failed to retrieve products');
     }
   }
@@ -46,7 +46,7 @@ export class ProductService {
 
       return result;
     } catch (error) {
-      this.logger.error(`${this.deleteProduct.name}: failed`, { error });
+      this.logger.error(`${this.deleteProduct.name}: failed with ${JSON.stringify({ error: error.message })}`);
       throw new Error('Failed to delete product');
     }
   }
