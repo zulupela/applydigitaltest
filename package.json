@@ -1,8 +1,7 @@
 {
-  "name": "core-api",
+  "name": "applydigitaltest",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "author": "Juan Pablo Zuluaga <zulupela@icloud.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
